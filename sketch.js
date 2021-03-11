@@ -6,6 +6,7 @@ var PLAY = 1;
 var END = 0;
 var gameState = PLAY;
 var treasureCollection = 0;
+var lives = 5;
 
 function preload() {
   pathImg = loadImage("Road.png");
@@ -25,7 +26,7 @@ function setup() {
   path.velocityY = 4;
 
 
-  //creating boy running
+  // creating boy running
   boy = createSprite(70, 330, 20, 20);
   boy.addAnimation("SahilRunning", boyImg);
   boy.scale = 0.08;
@@ -63,12 +64,17 @@ function draw() {
   } else if (jwelleryG.isTouching(boy)) {
     jwelleryG.destroyEach();
     treasureCollection += 100;
-  } else {
-    if (swordGroup.isTouching(boy)) {
-      gameState = END;
-      boy.addAnimation("SahilRunning", endImg);
-    }
   }
+  if (swordGroup.isTouching(boy)) {
+    lives -= 1;
+  }
+
+  //if(lives === 0) {
+  //gameState = END;
+  //boy.addAnimation("SahilRunning", endImg);
+  //boy.x = 200;
+  //boy.y = 200;
+  //}
 
   if (gameState === END) {
     swordGroup.destroyEach();
@@ -87,7 +93,7 @@ function draw() {
   textSize(20);
   fill(255);
   text("Treasure: " + treasureCollection, 150, 30);
-
+  text("Lives: " + lives, 150, 50);
 }
 
 function createCash() {
