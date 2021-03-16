@@ -64,17 +64,17 @@ function draw() {
   } else if (jwelleryG.isTouching(boy)) {
     jwelleryG.destroyEach();
     treasureCollection += 100;
-  }
-  if (swordGroup.isTouching(boy)) {
+  } else if (swordGroup.isTouching(boy)) {
     lives -= 1;
+    swordGroup.destroyEach();
   }
 
-  //if(lives === 0) {
-  //gameState = END;
-  //boy.addAnimation("SahilRunning", endImg);
-  //boy.x = 200;
-  //boy.y = 200;
-  //}
+  if (lives === 0) {
+    gameState = END;
+    boy.addAnimation("SahilRunning", endImg);
+    boy.x = 200;
+    boy.y = 200;
+  }
 
   if (gameState === END) {
     swordGroup.destroyEach();
